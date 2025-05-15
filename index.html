@@ -16,6 +16,11 @@
     <div class="hero">
         <div class="background-circle"></div>
         <div class="logo">TOKE <br> ONE <br> TOKA</div>
+        <div class="footer-logo">
+            <div class="com">.COM</div><br>
+            <div>dj . producer . sound curator . performer</div>
+        </div>
+
         <nav class="nav">
             <a class="nav__link" href="">ASSETS</a>
             <a class="nav__link" href="">SOUND</a>
@@ -177,7 +182,19 @@
                 </a>
             </div>
         </div>
+        <div class="background-circle-2"></div>
     </div>
+
+    <div class="contact padding">
+        <h2 class="section__heading">STAY IN TOUCH</h2>
+        <div class="contact__socials">
+
+        </div>
+    </div>
+
+    <footer>
+        © tokeonetoka
+    </footer>
 </body>
 </html>
 
@@ -186,6 +203,13 @@
         background-color: #171717;
         color: #fff;
         font-family: "Inter", sans-serif;
+        margin: 0;
+    }
+
+    footer {
+        padding: 20px;
+        background-color: #C1C2BC;
+        color: #000;
     }
 
     .padding {
@@ -210,6 +234,21 @@
         font-weight: 700;
         margin-left: 20px;
         margin-top: 20px;
+    }
+    .footer-logo {
+        position: fixed;
+        font-size: 14px;
+        line-height: 0.9;
+        font-weight: 500;
+        margin-left: 20px;
+        bottom: 20px;
+        right: 20px;
+    }
+    .footer-logo .com {
+        font-size: 64px;
+        line-height: 0.9;
+        font-weight: 700;
+        text-align: end;
     }
     .hero__left {
         position: absolute;
@@ -242,7 +281,7 @@
         right: 20px;
         top: 20px;
         display: flex;
-        gap: 20px;
+        gap: 32px;
     }
     .nav__link {
         color: #fff;
@@ -256,7 +295,7 @@
         width: calc(100% - 40px);
         height: fit-content;
         background-color: #C1C2BC;
-        margin-top: 120px;
+        margin-top: 180px;
     }
     .sound__heading, .sound__genre {
         margin: 0;
@@ -372,6 +411,16 @@
         transform: translateX(-50%);
         z-index: -1;
     }
+    .background-circle-2 {
+        background-color: #171717;
+        border-radius: 50%;
+        height: 10vw;
+        width: 10vw;
+        position: absolute;
+        left: 90%;
+        transform: translateX(-50%);
+        z-index: 1;
+    }
 
     /* EVENT STYLES */
 
@@ -380,6 +429,7 @@
         height: fit-content;
         background-color: #C1C2BC;
         color: #000;
+        position: relative;
     }
 
     .events__wrapper {
@@ -454,6 +504,19 @@
     .events__wrapper:hover .events__event-flyer {
         opacity: 1;
     }
+
+    /* CONTACT STYLES */
+
+    .contact {
+        width: calc(100% - 40px);
+        height: 100vh;
+        background-color: #C1C2BC;
+        color: #000;
+        position: relative;
+        z-index: -1;
+        text-align: center;
+    }
+    
 
     @keyframes shake {
         0% { transform: translate(1px, 1px) rotate(0deg); }
@@ -531,8 +594,6 @@
         const yPos = event.pageY
         const yAxis = event.clientY
 
-        console.log(yPos)
-
         eventFlyer.style.clientY = yPos
         const eventsWrapperOffset = eventsWrapper.getBoundingClientRect()
 
@@ -542,13 +603,14 @@
     })
 
     const backgroundCircle = document.querySelector(".background-circle");
+    const backgroundCircleTwo = document.querySelector(".background-circle-2");
 
     document.addEventListener('scroll', event => {
         // on scroll we want to change the size of the circle
         const scrollY = window.scrollY
 
         const baseSize = 0; // base width and height in px
-        const maxIncrease = 120; // max additional size in px
+        const maxIncrease = 140; // max additional size in px
 
         // Map scroll position to a scale between 0 and 1 (up to 1000px scroll)
         const scale = Math.min(scrollY / 200, 1);
@@ -556,6 +618,34 @@
         const newSize = baseSize + scale * maxIncrease;
         backgroundCircle.style.width = `${newSize}vw`;
         backgroundCircle.style.height = `${newSize}vw`;
+    })
+
+    window.addEventListener('scroll', event => {
+        // on scroll we want to change the size of the circle
+        const scrollY = window.scrollY
+        const backgroundCircleTwoOffset = backgroundCircleTwo.getBoundingClientRect()
+        const backgroundCircleTwoY = backgroundCircleTwoOffset.top
+        const backgroundCircleTwoHeight = backgroundCircleTwoOffset.height
+        const backgroundCircleTwoYPos = backgroundCircleTwoY + backgroundCircleTwoHeight
+
+        // how to determine when circle enters the viewport
+        console.log(backgroundCircleTwoOffset)
+        console.log(backgroundCircleTwoY)
+
+        if (backgroundCircleTwoOffset.top >= 0 && backgroundCircleTwoOffset.bottom <= window.innerHeight) {
+            // Element is fully in viewport
+            console.log('Element is in the viewport');
+
+            const baseSize = 0; // base width and height in px
+            const maxIncrease = 200; // max additional size in px
+
+            // Map scroll position to a scale between 0 and 1 (up to 1000px scroll)
+            const scale = Math.min(scrollY / 200, 1);
+
+            const newSize = baseSize + scale * maxIncrease;
+            backgroundCircleTwo.style.width = `${newSize}vw`;
+            backgroundCircleTwo.style.height = `${newSize}vw`;
+        }
     })
 
 </script>
